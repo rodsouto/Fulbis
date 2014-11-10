@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Apigility Skeleton Application
 ==============================
 
@@ -112,3 +113,9 @@ When you are ready to deploy your API to **production**, however, you can
 disable development mode, thus disabling the admin interface, and safely run an
 opcode cache again. Doing so is recommended for production due to the tremendous
 performance benefits opcode caches provide.
+=======
+Fulbis
+======
+
+API REST para administrar torneos de futbol generada usando Apigility (https://apigility.org/).
+>>>>>>> 65517fce05a147c0bd92fa36b3cd09240ea3c062
