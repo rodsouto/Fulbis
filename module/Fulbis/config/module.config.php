@@ -20,18 +20,30 @@ return array(
                     ),
                 ),
             ),
+            'fulbis.rest.players' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/players[/:player_id]',
+                    'defaults' => array(
+                        'controller' => 'Fulbis\\V1\\Rest\\Players\\Controller',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
         'uri' => array(
             0 => 'fulbis.rest.tournament',
             1 => 'fulbis.rest.teams',
+            2 => 'fulbis.rest.players',
+            3 => 'fulbis.rest.players',
         ),
     ),
     'service_manager' => array(
         'factories' => array(
             'Fulbis\\V1\\Rest\\Tournaments\\TournamentsResource' => 'Fulbis\\V1\\Rest\\Tournaments\\TournamentsResourceFactory',
             'Fulbis\\V1\\Rest\\Teams\\TeamsResource' => 'Fulbis\\V1\\Rest\\Teams\\TeamsResourceFactory',
+            'Fulbis\\V1\\Rest\\Players\\PlayersResource' => 'Fulbis\\V1\\Rest\\Players\\PlayersResourceFactory',
         ),
     ),
     'zf-rest' => array(
@@ -75,11 +87,32 @@ return array(
             'collection_class' => 'Fulbis\\V1\\Rest\\Teams\\TeamsCollection',
             'service_name' => 'Teams',
         ),
+        'Fulbis\\V1\\Rest\\Players\\Controller' => array(
+            'listener' => 'Fulbis\\V1\\Rest\\Players\\PlayersResource',
+            'route_name' => 'fulbis.rest.players',
+            'route_identifier_name' => 'player_id',
+            'collection_name' => 'players',
+            'entity_http_methods' => array(
+                0 => 'GET',
+                1 => 'PUT',
+            ),
+            'collection_http_methods' => array(
+                0 => 'GET',
+                1 => 'POST',
+            ),
+            'collection_query_whitelist' => array(),
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => 'Fulbis\\V1\\Rest\\Players\\PlayersEntity',
+            'collection_class' => 'Fulbis\\V1\\Rest\\Players\\PlayersCollection',
+            'service_name' => 'Players',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'Fulbis\\V1\\Rest\\Tournaments\\Controller' => 'HalJson',
             'Fulbis\\V1\\Rest\\Teams\\Controller' => 'HalJson',
+            'Fulbis\\V1\\Rest\\Players\\Controller' => 'HalJson',
         ),
         'accept_whitelist' => array(
             'Fulbis\\V1\\Rest\\Tournaments\\Controller' => array(
@@ -92,6 +125,11 @@ return array(
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
+            'Fulbis\\V1\\Rest\\Players\\Controller' => array(
+                0 => 'application/vnd.fulbis.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ),
         ),
         'content_type_whitelist' => array(
             'Fulbis\\V1\\Rest\\Tournaments\\Controller' => array(
@@ -99,6 +137,10 @@ return array(
                 1 => 'application/json',
             ),
             'Fulbis\\V1\\Rest\\Teams\\Controller' => array(
+                0 => 'application/vnd.fulbis.v1+json',
+                1 => 'application/json',
+            ),
+            'Fulbis\\V1\\Rest\\Players\\Controller' => array(
                 0 => 'application/vnd.fulbis.v1+json',
                 1 => 'application/json',
             ),
@@ -130,6 +172,18 @@ return array(
                 'route_identifier_name' => 'teams_id',
                 'is_collection' => true,
             ),
+            'Fulbis\\V1\\Rest\\Players\\PlayersEntity' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'fulbis.rest.players',
+                'route_identifier_name' => 'player_id',
+                'hydrator' => 'Zend\\Stdlib\\Hydrator\\ObjectProperty',
+            ),
+            'Fulbis\\V1\\Rest\\Players\\PlayersCollection' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'fulbis.rest.players',
+                'route_identifier_name' => 'player_id',
+                'is_collection' => true,
+            ),
         ),
     ),
     'zf-content-validation' => array(
@@ -138,6 +192,9 @@ return array(
         ),
         'Fulbis\\V1\\Rest\\Teams\\Controller' => array(
             'input_filter' => 'Fulbis\\V1\\Rest\\Teams\\Validator',
+        ),
+        'Fulbis\\V1\\Rest\\Players\\Controller' => array(
+            'input_filter' => 'Fulbis\\V1\\Rest\\Players\\Validator',
         ),
     ),
     'input_filter_specs' => array(
@@ -158,6 +215,14 @@ return array(
                 'validators' => array(),
                 'allow_empty' => false,
                 'continue_if_empty' => false,
+            ),
+        ),
+        'Fulbis\\V1\\Rest\\Players\\Validator' => array(
+            0 => array(
+                'name' => 'name',
+                'required' => true,
+                'filters' => array(),
+                'validators' => array(),
             ),
         ),
     ),
