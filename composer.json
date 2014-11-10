@@ -30,7 +30,10 @@
         "zendframework/zendframework": ">=2.3.2,<3.0.0",
         "zfcampus/zf-apigility": "~1.0",
         "zfcampus/zf-apigility-documentation": "~1.0",
-        "zfcampus/zf-development-mode": "~2.0"
+        "zfcampus/zf-development-mode": "~2.0",
+        "zendframework/zend-db": "~2.3",
+        "zendframework/zend-paginator": "~2.3",
+        "zendframework/zend-stdlib": "~2.3"
     },
     "require-dev": {
         "zendframework/zftool": "dev-master",
