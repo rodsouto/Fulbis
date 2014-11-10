@@ -5,7 +5,7 @@ use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 use Fulbis\TableGatewayMapper;
 
-class TournamentResource extends AbstractResourceListener
+class TournamentsResource extends AbstractResourceListener
 {
 
     protected $mapper;
